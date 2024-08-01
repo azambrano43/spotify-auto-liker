@@ -34,7 +34,9 @@ This script allows users to automatically like songs from a playlist file on Spo
 ## Example of `playlists.txt`
 
 Track1  Artist1  Album1  spotify:track:7CyPwkp0oE8Ro9Dd5CUDjW
+
 Track2  Artist2  Album2  spotify:track:6rqhFgbbKwnb9MLmUQDhG6
+
 Track3  Artist3  Album3  spotify:track:3n3Ppam7vgaVa1iaRUc9Lp
 
 
