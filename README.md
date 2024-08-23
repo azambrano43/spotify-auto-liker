@@ -34,7 +34,7 @@ By default, it assumes that the attributes of each song in your .txt are tab sep
 ## Notes
 - Each user will need to authenticate their Spotify account through the browser and grant permissions to the application to work.
 
-## Credits
+## Acknowledgements
 
 I would like to express my gratitude to [caseychu](https://github.com/caseychu) for the authentication method used in `spotify-backup.py`, which was adapted for use in this project. Additionally, I sincerely thank [caseychu](https://github.com/caseychu) for their work and apologize for using their Spotify Developer client ID. Please rest assured that it was used with the best of intentions and only for the purposes of this project.
 
