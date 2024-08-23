@@ -1,46 +1,43 @@
-# Spotify-auto-liker
+# Spotify Liker
 
-This script allows users to automatically like songs from a playlist file on Spotify using the Spotify API.
+This project is a script that automatically likes songs on Spotify.
 
-## Requirements
+## Prerequisites
 
-- Python 3.x
-- Spotify Developer Account
-- A Spotify Developer application configured with the necessary permissions and in production mode
+Install python necessary dependencies:
+    
+    pip install spotipy flask
 
-## Installation
+Before using this script, you need a `.txt` file with a list of your songs. You can find a program that creates this file, such as `spotify-backup.py`, created by [caseychu](https://github.com/caseychu) in  their [GitHub repository](https://github.com/caseychu/spotify-backup/tree/master).
 
-1. Clone this repository or download the files.
+Your .txt file of your songs should look like this:
 
-2. Install the necessary dependencies:
-   `pip install spotipy flask`
-
-3. Configure your application in the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/login) and obtain your `client_id`.
-
-4. Ensure the `redirect_uri` in your application is set to `http://127.0.0.1:43019/redirect`.
-
-5. Update the `spotify-like.py` script with your `client_id`.
-
+tr01_name‎‎ ‎ ‎ ‎ tr01_artists‎‎ ‎ ‎ ‎ tr01_album‎‎ ‎ ‎ ‎ tr01_uri‎‎ ‎ ‎ ‎ tr01_release_date  
+tr02_name‎‎ ‎ ‎ ‎ tr02_artists‎‎ ‎ ‎ ‎ tr02_album‎‎ ‎ ‎ ‎ tr02_uri‎‎ ‎ ‎ ‎ tr02_release_date  
+tr03_name‎‎ ‎ ‎ ‎ tr03_artists‎‎ ‎ ‎ ‎ tr03_album‎‎ ‎ ‎ ‎ tr03_uri‎‎ ‎ ‎ ‎ tr03_release_date  
+   
 ## Usage
 
-1. Create a `playlists.txt` file in the same directory as the script. The file should have the following format, with the song URLs in the fourth column, separated by tabs:
-   `Column1   Column2   Column3   spotify:track:track_id`
+1. Generate a `.txt` file with your songs using `spotify-backup.py` or a similar tool.
+2. Place the `.txt` file in the same directory as `spotify-liker.py`.
+3. Run the `spotify-liker.py` script to automatically like the songs on Spotify.
 
-2. Run the script:
-   `python spotify-like.py playlists.txt`
+You can run the script from the command line:
 
-3. Follow the instructions in the browser to authenticate your Spotify account and grant permissions to the application.
+    python spotify-liker.py playlist_name.txt
 
-## Example of `playlists.txt`
+By default, it assumes that the attributes of each song in your .txt are tab separated, if this is not the case, you can include the separator it uses:
 
-Track1  Artist1  Album1  spotify:track:7CyPwkp0oE8Ro9Dd5CUDjW
-
-Track2  Artist2  Album2  spotify:track:6rqhFgbbKwnb9MLmUQDhG6
-
-Track3  Artist3  Album3  spotify:track:3n3Ppam7vgaVa1iaRUc9Lp
-
+    python spotify-liker.py playlist_name.txt ","
+    python spotify-liker.py playlist_name.txt ";"
 
 ## Notes
-- Each user will need to authenticate their Spotify account through the browser and grant permissions to the application.
+- Each user will need to authenticate their Spotify account through the browser and grant permissions to the application to work.
+
+## Credits
+
+I would like to express my gratitude to [caseychu](https://github.com/caseychu) for the authentication method used in `spotify-backup.py`, which was adapted for use in this project. Additionally, I sincerely thank [caseychu](https://github.com/caseychu) for their work and apologize for using their Spotify Developer client ID. Please rest assured that it was used with the best of intentions and only for the purposes of this project.
+
+
 
 
