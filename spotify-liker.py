@@ -1,3 +1,5 @@
+your_client_id = "REPLACE_THIS_WITH_YOUR_OWN_CLIENT_ID"
+
 import argparse
 import codecs
 import http.client
@@ -139,7 +141,7 @@ def main():
     args = parser.parse_args()
 
     # Log into the Spotify API.
-    spotify = SpotifyAPI.authorize(client_id='5c098bcc800e45d49e476265bc9b6934', scope='user-library-modify')
+    spotify = SpotifyAPI.authorize(client_id= your_client_id, scope='user-library-modify')
 
     logging.info('Reading file and liking songs...')
     track_ids = []
