@@ -18,9 +18,10 @@ tr03_name‎‎ ‎ ‎ ‎ tr03_artists‎‎ ‎ ‎ ‎ tr03_album‎‎ ‎ 
    
 ## Usage
 
-1. Generate a `.txt` file with your songs using `spotify-backup.py` or a similar tool.
-2. Place the `.txt` file in the same directory as `spotify-liker.py`.
-3. Run the `spotify-liker.py` script to automatically like the songs on Spotify.
+1. At the beginning of de .py file, replace 'your_client_id' with your own client_id obtained from Spotify for Developers.
+2. Generate a `.txt` file with your songs using `spotify-backup.py` or a similar tool.
+3. Place the `.txt` file in the same directory as `spotify-liker.py`.
+4. Run the `spotify-liker.py` script to automatically like the songs on Spotify.
 
 You can run the script from the command line:
 
@@ -33,11 +34,8 @@ By default, it assumes that the attributes of each song in your .txt are tab sep
 
 ## Notes
 - Each user will need to authenticate their Spotify account through the browser and grant permissions to the application to work.
+- Remember to replace variable 'your_client_id' at the beginning of 'spotify-liker.py' with your own client_id (Create this on Spotify for Developers).
 
 ## Acknowledgements
 
-I would like to express my gratitude to [caseychu](https://github.com/caseychu) for the authentication method used in `spotify-backup.py`, which was adapted for use in this project. Additionally, I sincerely thank [caseychu](https://github.com/caseychu) for their work and apologize for using their Spotify Developer client ID. Please rest assured that it was used with the best of intentions and only for the purposes of this project.
-
-
-
-
+I would like to express my gratitude to [caseychu](https://github.com/caseychu) for the authentication method used in `spotify-backup.py`, which was adapted for use in this project. 
