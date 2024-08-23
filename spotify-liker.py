@@ -67,6 +67,8 @@ class SpotifyAPI:
         logging.error(f"Failed to like track {track_id} after {tries} attempts")
 
     # Pops open a browser window for a user to log in and authorize API access.
+    # Authentication method adapted from Casey Chu's repository
+    # https://github.com/caseychu/spotify-backup
     @staticmethod
     def authorize(client_id, scope):
         url = 'https://accounts.spotify.com/authorize?' + urllib.parse.urlencode({
