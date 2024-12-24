@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Automation</title>
+</head>
+<body>
+    <h1>Spotify Automation</h1>
+    <form action="/" method="post">
+        <label for="client_id">Spotify Client ID:</label>
+        <input type="text" id="client_id" name="client_id" required>
+        <h2>Select an action:</h2>
+        <input type="radio" id="backup" name="action" value="backup" required>
+        <label for="backup">Backup songs</label><br>
+        <input type="radio" id="auto_like" name="action" value="auto_like">
+        <label for="auto_like">Auto-like songs from file</label><br>
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>
