@@ -91,7 +91,7 @@ class SpotifyAPI:
 
     # Método para crear una nueva playlist
     def create_playlist(self, user_id, name, description=''):
-        url = f'v1/users/{user_id}/playlists'
+        url = f'users/{user_id}/playlists'
         data = {
             'name': name,
             'description': description,
