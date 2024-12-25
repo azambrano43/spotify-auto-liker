@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backup Options</title>
+</head>
+<body>
+    <h1>Backup Options</h1>
+    <form action="/backup_options" method="post">
+        <h2>Select data to backup:</h2>
+        
+        <!-- Generar las playlists dinámicamente -->
+        {% for playlist in playlists %}
+            <input type="checkbox" id="{{ playlist.id }}" name="scope" value="{{ playlist.id }}">
+            <label for="{{ playlist.id }}">{{ playlist.name }}</label><br>
+        {% endfor %}
+        
+        <input type="checkbox" id="liked" name="scope" value="liked">
+        <label for="liked">Liked songs</label><br>
+        
+        <button type="submit">Backup</button>
+    </form>
+</body>
+</html>
