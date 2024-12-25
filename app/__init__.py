@@ -14,6 +14,6 @@ def create_app():
 
     # Registrar Blueprints
     app.register_blueprint(main_bprint)
-    app.register_blueprint(spf_bprint, url_prefix='/spotify')
+    app.register_blueprint(spf_bprint)
 
     return app

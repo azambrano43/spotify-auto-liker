@@ -5,4 +5,3 @@ main = Blueprint('main', __name__)
 
 # Ahora importa las rutas
 import app.main.routes
-print("routes.py importado correctamente")

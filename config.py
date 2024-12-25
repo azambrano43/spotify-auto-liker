@@ -8,7 +8,6 @@ class Config:
 
     @staticmethod
     def init_app(app):
-        print("Initializing app with config...")
         # Ensure required folders exist
         os.makedirs(Config.GENERATED_FILES_FOLDER, exist_ok=True)
         os.makedirs(Config.TEMP_UPLOADS_FOLDER, exist_ok=True)

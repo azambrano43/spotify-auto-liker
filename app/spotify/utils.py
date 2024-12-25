@@ -16,19 +16,30 @@ def handle_file_upload(file_path, client_id):
 
     for line in lines:
         if not line.strip():
+            # Si la línea está vacía o contiene solo espacios, sáltala.
             continue
+
         if '\t' in line:
+            # Procesa las líneas con tabulación.
             track_info = line.strip().split('\t')
-            track_name, uri = track_info[0], track_info[1]
-            if 'Liked' in current_playlist:
-                liked_tracks.append(uri)
+            if len(track_info) == 2:
+                # Asegúrate de que hay exactamente dos elementos tras el split.
+                track_name, uri = track_info
+                if 'Liked' in current_playlist:
+                    liked_tracks.append(uri)  # Añade a la lista de canciones "Liked"
+                else:
+                    playlists_to_create.append((current_playlist, uri))  # Añade a la playlist
             else:
-                playlists_to_create.append((current_playlist, uri))
+                print(f"Error: La línea no tiene el formato esperado -> {line.strip()}")
         else:
+            # Procesa las líneas que definen el nombre de una playlist.
             current_playlist = line.strip()
+
+    #print(f"{liked_tracks}")
 
     for track_uri in liked_tracks:
         track_id = track_uri.split(":")[-1]
+        #print(track_id)
         spotify_client.like_track(track_id)
 
     for playlist_name, track_uri in playlists_to_create:

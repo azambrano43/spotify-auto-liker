@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session, flash, redirect, url_for
+from flask import Blueprint, render_template, request, session, flash, redirect, url_for, current_app
 from app.spotify.utils import authorize_spotify, handle_file_upload
 from app.spotify.spotify_api import SpotifyAPI
 from app.spotify import spotify
@@ -35,7 +35,7 @@ def process_backup():
         playlist_name = spotify_client.get(f'playlists/{playlist_id}')['name']
         data.append({'type': f'playlist: {playlist_name}', 'data': playlist_tracks})
 
-    file_path = os.path.join(app.config['GENERATED_FILES_FOLDER'], 'backup.txt')
+    file_path = os.path.join(current_app.config['GENERATED_FILES_FOLDER'], 'backup.txt')
     with open(file_path, 'w', encoding='utf-8') as f:
         for item in data:
             f.write(f"\n{item['type'].capitalize()}:\n")
@@ -64,8 +64,9 @@ def process_like():
         flash("No file selected.", 'error')
         return redirect(url_for('spotify.upload_like'))
 
-    file_path = os.path.join(app.config['TEMP_UPLOADS_FOLDER'], file.filename)
+    file_path = os.path.join(current_app.config['TEMP_UPLOADS_FOLDER'], file.filename)
     file.save(file_path)
+    print(session.get('client_id'))
 
     try:
         handle_file_upload(file_path, session.get('client_id'))

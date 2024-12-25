@@ -70,7 +70,7 @@ class SpotifyAPI:
                 server.handle_request()
         except SpotifyAPI._Authorization as auth:
             return SpotifyAPI(auth.access_token)
-
+    
     # Método para dar like a una canción
     def like_track(self, track_id):
         url = f'me/tracks'
@@ -84,7 +84,7 @@ class SpotifyAPI:
         response = requests.put(self.BASE_URL + url, json=data, headers=headers)
         if response.status_code == 200:
             logging.info(f"Track liked: {track_id}")
-            return response.json()
+            return {"message": f"Track {track_id} liked successfully"}
         else:
             logging.error(f"Error liking track {track_id}: {response.status_code} - {response.text}")
             raise Exception(f"Error liking track {track_id}: {response.status_code} - {response.text}")
@@ -111,7 +111,7 @@ class SpotifyAPI:
 
     # Método para agregar una canción a una playlist
     def add_track_to_playlist(self, playlist_id, track_id):
-        url = f'v1/playlists/{playlist_id}/tracks'
+        url = f'playlists/{playlist_id}/tracks'
         headers = {
             'Authorization': f'Bearer {self._auth}',
             'Content-Type': 'application/json'
