@@ -1,48 +1,56 @@
 from app.spotify.spotify_api import SpotifyAPI
 
-def authorize_spotify(client_id, scope):
-    return SpotifyAPI.authorize(client_id=client_id, scope=scope)
+def authorize_spotify(scope):
+    return SpotifyAPI.authorize(scope=scope)
 
-def handle_file_upload(file_path, client_id):
+def handle_file_upload(file_path):
     scope = 'playlist-modify-public playlist-modify-private user-library-modify user-library-read'
-    spotify_client = authorize_spotify(client_id, scope)
+    spotify_client = authorize_spotify(scope)
 
     with open(file_path, 'r', encoding='utf-8') as f:
         lines = f.readlines()
 
     liked_tracks = []
-    playlists_to_create = []
+    playlists = {}
     current_playlist = None
 
     for line in lines:
         if not line.strip():
-            # Si la línea está vacía o contiene solo espacios, sáltala.
             continue
 
         if '\t' in line:
-            # Procesa las líneas con tabulación.
+            # Procesa las canciones
             track_info = line.strip().split('\t')
             if len(track_info) == 2:
-                # Asegúrate de que hay exactamente dos elementos tras el split.
                 track_name, uri = track_info
                 if 'Liked' in current_playlist:
-                    liked_tracks.append(uri)  # Añade a la lista de canciones "Liked"
+                    liked_tracks.append(uri)
                 else:
-                    playlists_to_create.append((current_playlist, uri))  # Añade a la playlist
+                    # Si la playlist no existe en el diccionario, crear una lista vacía
+                    if current_playlist not in playlists:
+                        playlists[current_playlist] = []
+                    # Añadir la canción a la lista de la playlist correspondiente
+                    playlists[current_playlist].append(uri)
             else:
                 print(f"Error: La línea no tiene el formato esperado -> {line.strip()}")
         else:
-            # Procesa las líneas que definen el nombre de una playlist.
+            # Nueva playlist encontrada
             current_playlist = line.strip()
 
-    #print(f"{liked_tracks}")
-
+    # Procesar los "likes"
     for track_uri in liked_tracks:
         track_id = track_uri.split(":")[-1]
-        #print(track_id)
         spotify_client.like_track(track_id)
 
-    for playlist_name, track_uri in playlists_to_create:
-        playlist = spotify_client.create_playlist(client_id, playlist_name)
-        track_id = track_uri.split(":")[-1]
-        spotify_client.add_track_to_playlist(playlist['id'], track_id)
+    # Crear las playlists y añadir todas sus canciones
+    for playlist_name, tracks in playlists.items():
+        # Crear la playlist una sola vez y luego agregar sus canciones
+        playlist_name = playlist_name.split('Playlist: ')[-1]
+        playlist_name = playlist_name[0].upper() + playlist_name[1:-1]
+        print(playlist_name)
+
+        playlist = spotify_client.create_playlist(playlist_name)
+        # Añadir todas las canciones de esta playlist
+        for track_uri in tracks:
+            track_id = track_uri.split(":")[-1]
+            spotify_client.add_track_to_playlist(playlist['id'], track_id)

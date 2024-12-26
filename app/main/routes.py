@@ -4,7 +4,9 @@ from app.main import main
 @main.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        session['client_id'] = request.form['client_id']
+        client_id = request.form.get('client_id')
+        if client_id:    
+            session['client_id'] = client_id
         session['action'] = request.form['action']
         if session['action'] == 'backup':
             return redirect(url_for('spotify.backup_options'))

@@ -54,7 +54,7 @@ class SpotifyAPI:
 
     # Abre el navegador para que el usuario inicie sesión y autorice el acceso a la API.
     @staticmethod
-    def authorize(client_id, scope):
+    def authorize(scope, client_id = 'a851bce480d24360803b7e4c64a098c3'):
         url = 'https://accounts.spotify.com/authorize?' + urllib.parse.urlencode({
             'response_type': 'token',
             'client_id': client_id,
@@ -71,6 +71,10 @@ class SpotifyAPI:
         except SpotifyAPI._Authorization as auth:
             return SpotifyAPI(auth.access_token)
     
+
+    def get_user_info(self):
+        return self.get('me')
+
     # Método para dar like a una canción
     def like_track(self, track_id):
         url = f'me/tracks'
@@ -90,8 +94,12 @@ class SpotifyAPI:
             raise Exception(f"Error liking track {track_id}: {response.status_code} - {response.text}")
 
     # Método para crear una nueva playlist
-    def create_playlist(self, user_id, name, description=''):
+    def create_playlist(self, name, description=''):
+
+        user_id = self.get('me')['id']
+
         url = f'users/{user_id}/playlists'
+        
         data = {
             'name': name,
             'description': description,
