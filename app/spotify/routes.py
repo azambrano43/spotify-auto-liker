@@ -10,18 +10,16 @@ def backup_options():
         session['backup_scope'] = request.form.getlist('scope')
         return redirect(url_for('spotify.process_backup'))
 
-    client_id = session.get('client_id')
     scope = 'playlist-read-private'
-    spotify_client = authorize_spotify(client_id, scope)
+    spotify_client = authorize_spotify(scope)
     playlists = spotify_client.list('me/playlists')
 
     return render_template('backup_options.html', playlists=playlists)
 
 @spotify.route('/process_backup')
 def process_backup():
-    client_id = session.get('client_id')
     scope = ' '.join(['playlist-read-private', 'user-library-read'])
-    spotify_client = authorize_spotify(client_id, scope)
+    spotify_client = authorize_spotify(scope)
 
     data = []
     if 'liked' in session['backup_scope']:
@@ -66,10 +64,9 @@ def process_like():
 
     file_path = os.path.join(current_app.config['TEMP_UPLOADS_FOLDER'], file.filename)
     file.save(file_path)
-    print(session.get('client_id'))
 
     try:
-        handle_file_upload(file_path, session.get('client_id'))
+        handle_file_upload(file_path)
         flash('Liked tracks and created playlists successfully!', 'success')
         return redirect(url_for('main.index'))
     except Exception as e:
