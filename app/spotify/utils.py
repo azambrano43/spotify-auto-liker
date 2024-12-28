@@ -1,11 +1,19 @@
 from app.spotify.spotify_api import SpotifyAPI
+from flask import session, g
 
 def authorize_spotify(scope):
     return SpotifyAPI.authorize(scope=scope)
 
+def get_spotify_client():
+    if 'spotify_client' not in g:
+        token = session.get('client_token')
+        if not token:
+            raise RuntimeError("No Spotify token found in session.")
+        g.spotify_client = SpotifyAPI(token)
+    return g.spotify_client
+
 def handle_file_upload(file_path):
-    scope = 'playlist-modify-public playlist-modify-private user-library-modify user-library-read'
-    spotify_client = authorize_spotify(scope)
+    spotify_client = session.get('spotify_client')
 
     with open(file_path, 'r', encoding='utf-8') as f:
         lines = f.readlines()

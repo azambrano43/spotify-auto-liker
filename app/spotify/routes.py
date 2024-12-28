@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, session, flash, redirect, url_for, current_app
-from app.spotify.utils import authorize_spotify, handle_file_upload
+from app.spotify.utils import handle_file_upload, get_spotify_client
 from app.spotify.spotify_api import SpotifyAPI
 from app.spotify import spotify
 import os
@@ -7,19 +7,16 @@ import os
 @spotify.route('/backup_options', methods=['GET', 'POST'])
 def backup_options():
     if request.method == 'POST':
-        session['backup_scope'] = request.form.getlist('scope')
         return redirect(url_for('spotify.process_backup'))
 
-    scope = 'playlist-read-private'
-    spotify_client = authorize_spotify(scope)
+    spotify_client = get_spotify_client()
     playlists = spotify_client.list('me/playlists')
 
     return render_template('backup_options.html', playlists=playlists)
 
 @spotify.route('/process_backup')
 def process_backup():
-    scope = ' '.join(['playlist-read-private', 'user-library-read'])
-    spotify_client = authorize_spotify(scope)
+    spotify_client = get_spotify_client()
 
     data = []
     if 'liked' in session['backup_scope']:
