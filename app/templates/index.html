@@ -4,30 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title if title else "Spotify App" }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="{{ url_for('main.index') }}">Home</a>
-            <a href="{{ url_for('spotify.backup_options') }}">Backup</a>
-            <a href="{{ url_for('spotify.upload_like') }}">Auto Like</a>
-        </nav>
-    </header>
-    <main>
-        {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-        <ul class="flashes">
-            {% for category, message in messages %}
-            <li class="{{ category }}">{{ message }}</li>
-            {% endfor %}
+    <div class="sidebar">
+      <div class="logo">
+        <a href="#">
+          <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png" alt="Logo" />
+        </a>
+      </div>
+
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="#">
+              <span class="fa fa-home"></span>
+              <span>Home</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://github.com/azambrano43/spotify-auto-liker">
+              <span class="fa fa-search"></span>
+              <span>Github repository</span>
+            </a>
+          </li>
         </ul>
-        {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
-    </main>
-    <footer>
-        <p>&copy; 2024 Spotify App</p>
-    </footer>
-</body>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <div class="topbar">
+        <div class="prev-next-buttons">
+          <button type="button" class="fa fas fa-chevron-left"></button>
+          <button type="button" class="fa fas fa-chevron-right"></button>
+        </div>
+
+        <div class="navbar">
+            <a href="#">Authenticated as {{ session['client_name'] }}</a>
+            <button type="button" id="logoutButton">Log out</button>
+        </div>
+      </div>
+
+      <div class="spotify-playlists">
+        <h2>Choose an option:</h2>
+
+        <div class="list">
+          <div class="item" data-url="{{ url_for('spotify.backup_options') }}">
+            <img src="{{ url_for('static', filename='images/backup.png') }}" />
+            <h4>Backup my songs</h4>
+            <p>Backup your liked songs and playlists on a .txt file</p>
+          </div>
+
+          <div class="item" data-url="{{ url_for('spotify.upload_like') }}">
+            <img src="{{ url_for('static', filename='images/restore.png') }}" />
+            <h4>Restore my songs</h4>
+            <p>Auto-like songs and create playlists from a .txt file</p>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <script
+      src="https://kit.fontawesome.com/23cecef777.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  </body>
 </html>

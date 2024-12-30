@@ -17,6 +17,18 @@ class SpotifyAPI:
     def __init__(self, auth):
         self._auth = auth
 
+    # Método para "cerrar sesión"
+    def logout(self):
+        """Invalida el token actual y cierra la sesión en Spotify (si aplica)."""
+        logging.info("Logging out and invalidating token.")
+        self._auth = None  # Elimina el token actual de la instancia.
+        webbrowser.open('https://accounts.spotify.com/en/logout')  # Redirige para cerrar sesión en Spotify.
+        logging.info('Logged out succesfully!!!')
+
+    def get_user_name(self):
+        return self.get('me')['display_name']
+
+
     # Obtiene un recurso desde la API de Spotify y devuelve el objeto.
     def get(self, url, params={}, tries=3):
         if not url.startswith(self.BASE_URL):
@@ -69,11 +81,8 @@ class SpotifyAPI:
             while True:
                 server.handle_request()
         except SpotifyAPI._Authorization as auth:
-            return SpotifyAPI(auth.access_token)
+            return auth.access_token
     
-
-    def get_user_info(self):
-        return self.get('me')
 
     # Método para dar like a una canción
     def like_track(self, track_id):

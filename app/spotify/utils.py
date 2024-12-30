@@ -1,11 +1,19 @@
 from app.spotify.spotify_api import SpotifyAPI
+from flask import session, g
 
 def authorize_spotify(scope):
     return SpotifyAPI.authorize(scope=scope)
 
+def get_spotify_client():
+    if 'spotify_client' not in g:
+        token = session.get('client_token')
+        if not token:
+            raise RuntimeError("No Spotify token found in session.")
+        g.spotify_client = SpotifyAPI(token)
+    return g.spotify_client
+
 def handle_file_upload(file_path):
-    scope = 'playlist-modify-public playlist-modify-private user-library-modify user-library-read'
-    spotify_client = authorize_spotify(scope)
+    spotify_client = get_spotify_client()
 
     with open(file_path, 'r', encoding='utf-8') as f:
         lines = f.readlines()
@@ -47,7 +55,7 @@ def handle_file_upload(file_path):
         # Crear la playlist una sola vez y luego agregar sus canciones
         playlist_name = playlist_name.split('Playlist: ')[-1]
         playlist_name = playlist_name[0].upper() + playlist_name[1:-1]
-        print(playlist_name)
+        #print(playlist_name)
 
         playlist = spotify_client.create_playlist(playlist_name)
         # Añadir todas las canciones de esta playlist
