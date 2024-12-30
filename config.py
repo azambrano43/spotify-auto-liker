@@ -2,7 +2,7 @@ import os
 
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'your_secret_key')
-    GENERATED_FILES_FOLDER = os.getenv('GENERATED_FILES_FOLDER', 'generated_filesss')
+    GENERATED_FILES_FOLDER = os.getenv('GENERATED_FILES_FOLDER', 'generated_files')
     TEMP_UPLOADS_FOLDER = os.getenv('TEMP_UPLOADS_FOLDER', 'temp_uploads')
     SPOTIFY_REDIRECT_URI = 'http://127.0.0.1:43019/redirect'
 

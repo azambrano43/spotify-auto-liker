@@ -94,7 +94,7 @@ def process_like():
     file = request.files.get('file')
     if not file:
         flash("No file selected.", 'error')
-        return redirect(url_for('spotify.upload_like'))
+        return jsonify({"status": "error", "message": "No file selected."}), 400
 
     file_path = os.path.join(current_app.config['TEMP_UPLOADS_FOLDER'], file.filename)
     file.save(file_path)
@@ -102,7 +102,7 @@ def process_like():
     try:
         handle_file_upload(file_path)
         flash('Liked tracks and created playlists successfully!', 'success')
-        return redirect(url_for('main.index'))
+        return jsonify({"status": "success", "redirect_url": url_for('main.index')}), 200
     except Exception as e:
         flash(f"Error processing file: {e}", 'error')
-        return redirect(url_for('spotify.upload_like'))
+        return jsonify({"status": "error", "message": f"Error processing file: {e}"}), 500

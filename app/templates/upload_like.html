@@ -3,14 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select File</title>
+    <title>{{ title if title else "Spotify App" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/restore.css') }}">
 </head>
 <body>
-    <h1>Auto-Like Songs</h1>
-    <form action="/process_like" method="post" enctype="multipart/form-data">
-        <label for="file">Select the .txt file:</label>
-        <input type="file" id="file" name="file" accept=".txt" required><br><br>
-        <button type="submit">Process</button>
-    </form>
-</body>
+    <div class="sidebar">
+      <div class="logo">
+        <a href="#">
+          <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png" alt="Logo" />
+        </a>
+      </div>
+
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="{{ url_for('main.index') }}">
+              <span class="fa fa-home"></span>
+              <span>Home</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://github.com/azambrano43/spotify-auto-liker">
+              <span class="fa fa-search"></span>
+              <span>Github repository</span>
+            </a>
+          </li>
+        </ul>
+        <button type="button" id="restoreButton">Perform restore</button>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <div class="topbar">
+        <div class="prev-next-buttons">
+          <button type="button" class="fa fas fa-chevron-left"></button>
+          <button type="button" class="fa fas fa-chevron-right"></button>
+        </div>
+
+        <div class="navbar">
+            <a href="#">Authenticated as {{ session['client_name'] }}</a>
+            <button type="button" id="logoutButton">Log out</button>
+        </div>
+      </div>
+
+      <div class="spotify-playlists">
+        <h2>Upload a file to restore</h2>
+    
+        <div class="list">
+          <div class="item">
+            <img src="{{ url_for('static', filename='images/restore_icon.png') }}" alt="Restore Icon" />
+            <h4>Restore my songs</h4>
+            <p>Please upload your .txt file with the content to be restored to your spotify</p>
+    
+            <label for="fileInput" class="custom-file-upload">Upload .txt file</label>
+            <input type="file" id="fileInput" accept=".txt" style="display: none;" />
+            
+    
+            <!-- Display file name -->
+            <p id="fileName"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://kit.fontawesome.com/23cecef777.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="{{ url_for('static', filename='js/restore.js') }}"></script>
+
+
+    <!-- Popup de confirmación con animación de carga -->
+    <div id="backupPopup" class="popup" style="display:none;">
+        <div class="popup-content">
+            <h3>Restore is in progress...</h3>
+            <div class="loader"></div>
+            <p>Please wait while we process your restore.</p>
+        </div>
+    </div>
+  </body>
 </html>

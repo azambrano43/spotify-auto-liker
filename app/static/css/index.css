@@ -120,6 +120,13 @@
     color: #ffffff;
     font-size: 15px;
   }
+
+  .topbar .navbar a {
+    color: #ffffff;
+    font-size: 15px;
+    text-decoration: none;
+  }
+
   .topbar .navbar ul li.divider {
     color: #ffffff;
     font-size: 26px;

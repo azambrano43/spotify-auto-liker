@@ -29,6 +29,7 @@ def logout_user():
 
     spotify_client = get_spotify_client()
     spotify_client.logout()
+    session.clear()
 
     print("Cerrando sesión")
     return redirect(url_for('main.login_user'))

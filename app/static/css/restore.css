@@ -188,13 +188,14 @@
     border-radius: 6px;
     cursor: pointer;
     transition: all ease 0.4s;
+    display: grid;
+    justify-items: center;
   }
   .spotify-playlists .list .item:hover {
     background-color: #252525;
   }
   .spotify-playlists .list .item img {
-    width: 91%;
-    border-radius: 50%;
+    width: 71%;
     margin-bottom: 15px;
   }
   .spotify-playlists .list .item .play {
@@ -227,6 +228,7 @@
     font-size: 12px;
     line-height: 20px;
     font-weight: 600;
+    text-align: justify;
   }
   .spotify-playlists hr {
     margin: 70px 0px 0px;
@@ -347,3 +349,35 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* Custom file upload button */
+.custom-file-upload {
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 14px 30px;
+  border: 0px;
+  border-radius: 40px;
+  cursor: pointer;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.custom-file-upload:hover {
+  background-color: #7abe8e;
+}
+
+/* Hide the default file input */
+input[type="file"] {
+  display: none; /* Completely hide the file input */
+}
+
+#fileName {
+  font-size: 0.8em;
+  color: #ffffff;
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: justify;
+}
+
