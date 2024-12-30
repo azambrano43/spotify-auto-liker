@@ -25,6 +25,10 @@ class SpotifyAPI:
         webbrowser.open('https://accounts.spotify.com/en/logout')  # Redirige para cerrar sesión en Spotify.
         logging.info('Logged out succesfully!!!')
 
+    def get_user_name(self):
+        return self.get('me')['display_name']
+
+
     # Obtiene un recurso desde la API de Spotify y devuelve el objeto.
     def get(self, url, params={}, tries=3):
         if not url.startswith(self.BASE_URL):

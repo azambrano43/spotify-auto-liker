@@ -14,7 +14,9 @@ def login_user():
         
         client_token = authorize_spotify(scope)
         session['client_token'] = client_token
-        print("Token del cliente inicializado")
+        session['client_name'] = get_spotify_client().get_user_name()
+
+        print("Token y nombre del cliente inicializados!!!")
 
         # Redirige al índice principal después de iniciar sesión
         return redirect(url_for('main.index'))

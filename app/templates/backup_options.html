@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify Playlists</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='backup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/backup.css') }}">
 </head>
 <body>
     <div class="sidebar">
@@ -55,15 +55,19 @@
                 <div class="item">
                     <input type="checkbox" id="{{ playlist.id }}" name="scope" value="{{ playlist.id }}">
                     <label for="{{ playlist.id }}">
-                        <img src="playlist-icon.png" alt="Playlist icon">
+                        {% if playlist.images|length > 0 %}
+                            <img src="{{ playlist.images.0.url }}" alt="Playlist icon">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='images/playlist_default_icon.png') }}" alt="Default icon">  <!-- Imagen por defecto si no hay imágenes -->
+                        {% endif %}
                         <h4>{{ playlist.name }}</h4>
                     </label>
                 </div>
-                {% endfor %}
+            {% endfor %}
                 <div class="item">
                     <input type="checkbox" id="liked" name="scope" value="liked">
                     <label for="liked">
-                        <img src="liked-icon.png" alt="Liked songs icon">
+                        <img src="{{ url_for('static', filename='images/liked_songs_icon.jpg') }}" alt="Liked songs icon">
                         <h4>Liked Songs</h4>
                     </label>
                 </div>
@@ -72,6 +76,15 @@
     </div>
 
     <script src="https://kit.fontawesome.com/23cecef777.js" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='backup.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/backup.js') }}"></script>
+
+    <!-- Popup de confirmación con animación de carga -->
+    <div id="backupPopup" class="popup" style="display:none;">
+        <div class="popup-content">
+            <h3>Backup is in progress...</h3>
+            <div class="loader"></div>
+            <p>Please wait while we process your backup.</p>
+        </div>
+    </div>
 </body>
 </html>

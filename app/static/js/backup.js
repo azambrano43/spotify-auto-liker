@@ -6,6 +6,9 @@ document.getElementById('backupButton').addEventListener('click', function() {
     });
 
     if (selectedScopes.length > 0) {
+        // Mostrar el popup indicando que el proceso ha comenzado
+        document.getElementById('backupPopup').style.display = 'flex';
+
         // Enviar los datos seleccionados al servidor usando fetch
         fetch('/backup_options', {
             method: 'POST',
@@ -18,7 +21,19 @@ document.getElementById('backupButton').addEventListener('click', function() {
         .then(data => {
             if (data.success) {
                 // Si la solicitud fue exitosa, redirigimos a la ruta de procesamiento
-                window.location.href = '/process_backup';
+                // Aquí esperamos que se complete el respaldo antes de continuar
+                return fetch('/process_backup')
+                    .then(response => {
+                        if (response.ok) {
+                            // Detener la animación
+                            stopLoadingAnimation();
+
+                            // Iniciar la descarga del archivo
+                            window.location.href = response.url;
+                        } else {
+                            alert('An error occurred while processing the backup.');
+                        }
+                    });
             } else {
                 alert('No options selected');
             }
@@ -31,6 +46,13 @@ document.getElementById('backupButton').addEventListener('click', function() {
         alert('Please select at least one option');
     }
 });
+
+// Función para detener la animación y ocultar el popup después de un retraso de 2 segundos
+function stopLoadingAnimation() {
+    setTimeout(function() {
+        document.getElementById('backupPopup').style.display = 'none';
+    }, 2000); // 2000 milisegundos = 2 segundos
+}
 
 
 document.getElementById('logoutButton').addEventListener('click', function() {
