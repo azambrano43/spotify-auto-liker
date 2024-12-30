@@ -1,41 +1,48 @@
-# Spotify Liker
+# Spotify Auto Backup-Restore
 
-This project is a script that automatically likes songs on Spotify.
+Spotify Auto Backup-Restore es una aplicación que te permite respaldar y restaurar tus canciones y playlists en Spotify, utilizando la API de Spotify y Flask para una interfaz interactiva.
 
-## Prerequisites
+## Instalación
 
-Install python necessary dependencies:
-    
-    pip install spotipy flask
+1. **Instalar dependencias**  
+   Ejecuta el siguiente comando para instalar todas las dependencias necesarias:
 
-Before using this script, you need a `.txt` file with a list of your songs. You can find a program that creates this file, such as `spotify-backup.py`, created by [caseychu](https://github.com/caseychu) in  their [GitHub repository](https://github.com/caseychu/spotify-backup/tree/master).
+       python -m pip install -r requirements.txt
 
-Your .txt file of your songs should look like this:
+## Autenticación
 
-tr01_name‎‎ ‎ ‎ ‎ tr01_artists‎‎ ‎ ‎ ‎ tr01_album‎‎ ‎ ‎ ‎ tr01_uri‎‎ ‎ ‎ ‎ tr01_release_date  
-tr02_name‎‎ ‎ ‎ ‎ tr02_artists‎‎ ‎ ‎ ‎ tr02_album‎‎ ‎ ‎ ‎ tr02_uri‎‎ ‎ ‎ ‎ tr02_release_date  
-tr03_name‎‎ ‎ ‎ ‎ tr03_artists‎‎ ‎ ‎ ‎ tr03_album‎‎ ‎ ‎ ‎ tr03_uri‎‎ ‎ ‎ ‎ tr03_release_date  
-   
-## Usage
+El proyecto utiliza el método de autenticación de la API de Spotify adaptado del script `spotify-backup.py` de [caseychu](https://github.com/caseychu).
 
-1. At the beginning of de .py file, replace 'your_client_id' with your own client_id obtained from Spotify for Developers.
-2. Generate a `.txt` file with your songs using `spotify-backup.py` or a similar tool.
-3. Place the `.txt` file in the same directory as `spotify-liker.py`.
-4. Run the `spotify-liker.py` script to automatically like the songs on Spotify.
+## Funcionalidades
 
-You can run the script from the command line:
+### 1. Respaldo de Canciones y Playlists
 
-    python spotify-liker.py playlist_name.txt
+- Guarda todas las canciones que te gustan y todas tus playlists en un archivo `.txt`.
+- El archivo `.txt` generado contiene la siguiente información para cada canción: nombre, artistas, y URI.
+- Adicionalmente guarda una línea indicando si la canción pertenece a una playlist o a las canciones que te gustan.
 
-By default, it assumes that the attributes of each song in your .txt are tab separated, if this is not the case, you can include the separator it uses:
+### 2. Restauración de Canciones y Playlists
 
-    python spotify-liker.py playlist_name.txt ","
-    python spotify-liker.py playlist_name.txt ";"
+- Usa el archivo `.txt` generado en el respaldo para restaurar tus canciones y playlists en Spotify.
+- El programa automáticamente dará "like" a las canciones y recreará las playlists con su contenido original.
 
-## Notes
-- Each user will need to authenticate their Spotify account through the browser and grant permissions to the application to work.
-- Remember to replace variable 'your_client_id' at the beginning of 'spotify-liker.py' with your own client_id (Create this on Spotify for Developers).
+## Uso
 
-## Acknowledgements
+### Ejecutar la aplicación
 
-I would like to express my gratitude to [caseychu](https://github.com/caseychu) for the authentication method used in `spotify-backup.py`, which was adapted for use in this project. 
+Inicia la aplicación Flask con el siguiente comando:
+
+    python run.py
+
+## Interfaz de usuario
+
+Después de ejecutar el comando, la aplicación se ejecutará en el navegador. Desde la interfaz podrás:
+
+- Realizar un respaldo de tus canciones y playlists en un archivo `.txt`.
+- Restaurar tus canciones y playlists desde un archivo `.txt`.
+
+## Notas
+
+- Es necesario autenticar tu cuenta de Spotify a través del navegador y otorgar permisos a la aplicación.
+- El método de autenticación de spotify utilizado en este proyecto fue adaptado de [caseychu](https://github.com/caseychu).
+
