@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session, flash, redirect, url_for, current_app
+from flask import Blueprint, render_template, request, session, flash, redirect, url_for, current_app, jsonify
 from app.spotify.utils import handle_file_upload, get_spotify_client
 from app.spotify.spotify_api import SpotifyAPI
 from app.spotify import spotify
@@ -7,12 +7,26 @@ import os
 @spotify.route('/backup_options', methods=['GET', 'POST'])
 def backup_options():
     if request.method == 'POST':
-        return redirect(url_for('spotify.process_backup'))
+        # Obtener los datos del cuerpo de la solicitud (JSON)
+        data = request.get_json()
+        selected_scopes = data.get('scopes', [])
 
+        if selected_scopes:
+            # Guardamos las opciones seleccionadas en la sesión
+            session['backup_scope'] = selected_scopes
+            return jsonify({'success': True})
+        else:
+            return jsonify({'success': False, 'message': 'No options selected'}), 400
+
+    # Si es un GET, mostrar la lista de playlists
     spotify_client = get_spotify_client()
-    playlists = spotify_client.list('me/playlists')
 
-    return render_template('backup_options.html', playlists=playlists)
+    # Obtén directamente la lista de playlists
+    playlists_data = spotify_client.list('me/playlists')  # Ya es una lista
+
+    # Renderiza la plantilla con los datos de las playlists
+    return render_template('backup_options.html', playlists=playlists_data)
+
 
 @spotify.route('/process_backup')
 def process_backup():

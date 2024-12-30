@@ -5,3 +5,6 @@ document.querySelectorAll('.item').forEach(item => {
     });
   });
   
+  document.getElementById('logoutButton').addEventListener('click', function() {
+    window.location.href = '/logout';  // Redirige a la URL de logout
+});
