@@ -14,7 +14,10 @@ def login_user():
         
         client_token = authorize_spotify(scope)
         session['client_token'] = client_token
-        session['client_name'] = get_spotify_client().get_user_name()
+        spotify_client = get_spotify_client()
+        session['client_name'] = spotify_client.get_user_name()
+        session['number_liked_songs'] = spotify_client.get_number_liked_songs()
+
 
         print("Token y nombre del cliente inicializados!!!")
 
