@@ -1,0 +1,71 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #121212;
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+}
+
+.cuadrado {
+    width: 400px;
+    height: 400px;
+    background-color: #000000;
+    transform: rotate(45deg); /* Cuadrado rotado */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.cuadrado-inner {
+    transform: rotate(-45deg); /* Desrotamos el contenido */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px; /* Espaciado entre los elementos */
+}
+
+.cuadrado .cuadrado-inner img {
+    width: 180px;
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin: 0;
+    margin-bottom: -6px;
+}
+
+p {
+    font-size: 0.9rem;
+    color: #e6e6e6;
+    margin: 0;
+}
+
+button {
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 14px 30px;
+    border: 0px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+button:hover {
+    background-color: #f4f4f4;
+}
+
+small {
+    font-size: 0.7rem;
+    color: #e6e6e6;
+}

@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autenticación</title>
+    <title>Spotify Backup-Restore</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 <body>
-    <h1>Bienvenido a la aplicación</h1>
-    <p>Para continuar, debes autenticarte.</p>
-    
-    <!-- Botón que llama a la ruta /login -->
-    <form action="" method="post">
-        <button type="submit">Autenticarme ahora</button>
-    </form>
+    <div class="cuadrado">
+        <div class="cuadrado-inner">
+            <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png" alt="Logo" class="logo"/>
+            <h1>Spotify Backup-Restore</h1>
+            <p>Please authenticate with your Spotify account to continue</p>
+            <form action="" method="post">
+                <button type="submit">Authenticate me now</button>
+            </form>
+            <small>Made by azambrano43</small>
+        </div>
+    </div>
 </body>
 </html>
