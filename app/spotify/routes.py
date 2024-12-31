@@ -24,7 +24,7 @@ def backup_options():
     spotify_client = get_spotify_client()
 
     # Obtén directamente la lista de playlists
-    playlists_data = spotify_client.list('me/playlists')  # Ya es una lista
+    playlists_data = spotify_client.list('me/playlists')
 
     # Renderiza la plantilla con los datos de las playlists
     return render_template('backup_options.html', playlists=playlists_data)

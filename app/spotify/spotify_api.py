@@ -49,6 +49,10 @@ class SpotifyAPI:
                 logging.info('Trying again...')
         sys.exit(1)
 
+    def get_number_liked_songs(self):
+        response = self.get('me/tracks', params={'limit':1, 'offset':1})
+        return response['total']
+
     # La API de Spotify divide listas largas en varias páginas. Este método obtiene todas las páginas.
     def list(self, url, params={}):
         last_log_time = time.time()
